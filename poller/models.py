@@ -1,3 +1,25 @@
 from django.db import models
 
-# Create your models here.
+
+class Poll(models.Model):
+    title = models.CharField(max_length=150)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.title
+
+
+class Question(models.Model):
+    text = models.TextField()
+    poll = models.ForeignKey('poller.Poll', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.text
+
+
+class Choice(models.Model):
+    text = models.TextField()
+    question = models.ForeignKey('poller.Question', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.text

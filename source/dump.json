@@ -1,0 +1,148 @@
+[
+{
+    "model": "poller.poll",
+    "pk": 1,
+    "fields": {
+        "title": "Асинхронность",
+        "created_at": "2021-09-04T05:42:01.028Z"
+    }
+},
+{
+    "model": "poller.poll",
+    "pk": 2,
+    "fields": {
+        "title": "Автор кода",
+        "created_at": "2021-09-04T05:43:52.857Z"
+    }
+},
+{
+    "model": "poller.question",
+    "pk": 1,
+    "fields": {
+        "text": "Что такое асинхронность?",
+        "poll": 1
+    }
+},
+{
+    "model": "poller.question",
+    "pk": 2,
+    "fields": {
+        "text": "Для чего она нужна?",
+        "poll": 1
+    }
+},
+{
+    "model": "poller.question",
+    "pk": 3,
+    "fields": {
+        "text": "Кто автор этого кода?",
+        "poll": 2
+    }
+},
+{
+    "model": "poller.question",
+    "pk": 4,
+    "fields": {
+        "text": "На каком языке этот код?",
+        "poll": 2
+    }
+},
+{
+    "model": "poller.choice",
+    "pk": 1,
+    "fields": {
+        "text": "Передача управления работой функции в ивент луп",
+        "question": 1
+    }
+},
+{
+    "model": "poller.choice",
+    "pk": 2,
+    "fields": {
+        "text": "Я не знаю",
+        "question": 1
+    }
+},
+{
+    "model": "poller.choice",
+    "pk": 3,
+    "fields": {
+        "text": "Для ускорения работы и оптимизации rps",
+        "question": 2
+    }
+},
+{
+    "model": "poller.choice",
+    "pk": 4,
+    "fields": {
+        "text": "Скучно было ребятам, вот они решили по приколу пропатчить сокеты и что-то из этого вышло",
+        "question": 2
+    }
+},
+{
+    "model": "poller.choice",
+    "pk": 5,
+    "fields": {
+        "text": "Давид Ли",
+        "question": 3
+    }
+},
+{
+    "model": "poller.choice",
+    "pk": 6,
+    "fields": {
+        "text": "Евгений 10",
+        "question": 3
+    }
+},
+{
+    "model": "poller.choice",
+    "pk": 7,
+    "fields": {
+        "text": "Зарина Мамедова",
+        "question": 3
+    }
+},
+{
+    "model": "poller.choice",
+    "pk": 8,
+    "fields": {
+        "text": "Python",
+        "question": 4
+    }
+},
+{
+    "model": "poller.choice",
+    "pk": 9,
+    "fields": {
+        "text": "Ruby",
+        "question": 4
+    }
+},
+{
+    "model": "poller.choice",
+    "pk": 10,
+    "fields": {
+        "text": "На английском",
+        "question": 4
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 1,
+    "fields": {
+        "password": "pbkdf2_sha256$260000$HBVobGSkqa4gQZUGakiu5W$e7LlzQBmy+2d/3pSN4llDkVeX2/85DtKcQjolbyhAx4=",
+        "last_login": "2021-09-04T05:41:54.687Z",
+        "is_superuser": true,
+        "username": "admin",
+        "first_name": "",
+        "last_name": "",
+        "email": "admin@mail.ru",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2021-09-04T05:41:44.316Z",
+        "groups": [],
+        "user_permissions": []
+    }
+}
+]
