@@ -9,8 +9,6 @@ urlpatterns = [
     path('create', CreatePoll.as_view(), name='polls_create'),
     path('<int:pk>/update', UpdatePoll.as_view(), name='polls_update'),
     path('<int:pk>/delete', DeletePoll.as_view(), name='polls_delete'),
+    path('questions/', include('poller.urls.question_urls')),
 
-    path('<int:poll_pk>/add_question', CreateQuestion.as_view(), name='question_create'),
-    path('<int:pk>/update_question', UpdateQuestion.as_view(), name='question_update'),
-    path('<int:pk>/delete_question', DeleteQuestion.as_view(), name='question_delete')
 ]

@@ -1,6 +1,6 @@
 from django.forms import models
 from django import forms
-from poller.models import Poll, Question
+from poller.models import Poll, Question, Choice
 
 
 class PollForm(models.ModelForm):
@@ -24,4 +24,16 @@ class QuestionForm(models.ModelForm):
             'text': forms.TextInput(attrs={
                 'class': 'form-control mb-3'
             }),
+        }
+
+
+class ChoiceForm(models.ModelForm):
+    class Meta:
+        model = Choice
+        fields = ['text']
+
+        widgets = {
+            'text': forms.TextInput(attrs={
+                'class': 'form-control mb-3'
+            })
         }

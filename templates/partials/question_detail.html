@@ -10,6 +10,32 @@
         </div>
     </div>
     <div class="card-body">
-        <p class="card-text">{{ question.text }}</p>
+        <h4 class="card-text mb-3">{{ question.text }}</h4>
+
+        {% url 'choice_create' question.pk as choice_create_url %}
+        {% include 'partials/create&update_form.html' with url=choice_create_url %}
+
+        <ul class="mt-4">
+            {% for choice in question.choice_set.all %}
+                <li class="mb-4">
+                    <label>
+                        <input type="radio" name="choice" value="{{ choice.pk }}">
+                    </label>
+                    <span class="">
+                        {{ choice.text }}
+                        <div class="d-flex">
+                            <a href="{% url 'choice_update' choice.pk %}" class="btn btn-primary me-4">Обновить</a>
+                            <form action="{% url 'choice_delete' choice.pk %}" method="post">
+                                {% csrf_token %}
+                                <button class="btn btn-danger" type="submit"
+                                        onclick="return confirm('Вы уверены?')">Удалить</button>
+                            </form>
+                        </div>
+                    </span>
+                </li>
+            {% endfor %}
+        </ul>
+
+
     </div>
 </div>

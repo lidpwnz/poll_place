@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DetailView, DeleteView
+
+from poller.forms import ChoiceForm
 from poller.helpers.views import PollAttrsMixin
 from poller.models import Poll
 
@@ -31,6 +33,10 @@ class UpdatePoll(PollAttrsMixin, UpdateView):
 
 class DetailPoll(PollAttrsMixin, DetailView):
     template_name = 'polls/detail.html'
+    extra_context = {'btn_text': 'Ответ'}
+
+    def get_context_data(self, **kwargs):
+        return super(DetailPoll, self).get_context_data(form=ChoiceForm())
 
 
 class DeletePoll(PollAttrsMixin, DeleteView):
