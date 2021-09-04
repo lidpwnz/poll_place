@@ -25,7 +25,7 @@ class UpdatePoll(PollAttrsMixin, UpdateView):
     extra_context = {'btn_text': 'Update'}
 
     def get_context_data(self, **kwargs):
-        url = reverse_lazy('polls_detail', kwargs={'pk': self.object.pk})
+        url = reverse_lazy('polls_update', kwargs={'pk': self.object.pk})
         return super(UpdatePoll, self).get_context_data(url=url)
 
 
@@ -34,4 +34,5 @@ class DetailPoll(PollAttrsMixin, DetailView):
 
 
 class DeletePoll(PollAttrsMixin, DeleteView):
-    success_url = reverse_lazy('polls_list')
+    def get_success_url(self):
+        return reverse_lazy('polls_list')

@@ -1,6 +1,7 @@
 from django.urls import path, include
 
 from poller.views.poll_views import ListPolls, DetailPoll, CreatePoll, UpdatePoll, DeletePoll
+from poller.views.question_views import CreateQuestion, UpdateQuestion, DeleteQuestion
 
 urlpatterns = [
     path('', ListPolls.as_view(), name='polls_list'),
@@ -8,4 +9,8 @@ urlpatterns = [
     path('create', CreatePoll.as_view(), name='polls_create'),
     path('<int:pk>/update', UpdatePoll.as_view(), name='polls_update'),
     path('<int:pk>/delete', DeletePoll.as_view(), name='polls_delete'),
+
+    path('<int:poll_pk>/add_question', CreateQuestion.as_view(), name='question_create'),
+    path('<int:pk>/update_question', UpdateQuestion.as_view(), name='question_update'),
+    path('<int:pk>/delete_question', DeleteQuestion.as_view(), name='question_delete')
 ]

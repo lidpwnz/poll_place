@@ -7,6 +7,7 @@
           <div class="card-body">
             <h5 class="card-title">Опрос: {{ poll.title }}</h5>
             <p class="card-text"><small class="text-muted">Дата Создания: {{ poll.created_at }}</small></p>
+              <a href="{% url 'question_create' poll.pk %}">Добавить вопрос</a>
               {% for question in poll.question_set.all %}
                   {% include 'partials/question_detail.html' %}
               {% endfor %}

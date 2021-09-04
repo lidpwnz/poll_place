@@ -1,6 +1,13 @@
 <div class="card my-4">
-    <div class="card-header">
+    <div class="card-header d-flex justify-content-between">
         {{ forloop.counter }}
+        <div class="d-flex">
+            <a href="{% url 'question_update' question.pk %}" class="btn btn-primary me-4">Редактировать</a>
+            <form action="{% url 'question_delete' question.pk %}" method="post">
+                {% csrf_token %}
+                <button class="btn btn-danger" type="submit" onclick="return confirm('Вы уверены?')">Удалить</button>
+            </form>
+        </div>
     </div>
     <div class="card-body">
         <p class="card-text">{{ question.text }}</p>
