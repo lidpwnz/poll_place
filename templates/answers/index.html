@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2 class="my-4">{{ poll.title }}</h2>
+    <form action="{% url 'answer_create' poll.pk %}" method="post">
+    {% csrf_token %}
+        {% for question in poll.question_set.all %}
+            {% if question.choice_set.all %}
+                <div class="card my-4">
+                    <div class="card-header d-flex justify-content-between">
+                        {{ forloop.counter }}
+                    </div>
+                    <div class="card-body">
+                        <h4 class="card-text mb-3">{{ question.text }}</h4>
+                        {% for choice in question.choice_set.all %}
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="{{ question.pk }}" id="{{ choice.text }}"
+                                       value="{{ choice.pk }}">
+                                <label class="form-check-label" for="{{ choice.text }}">
+                                    {{ choice.text }}
+                                </label>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+        {% include 'partials/submit_button.html' with btn_text='Отправить' %}
+    </form>
+
+{% endblock %}

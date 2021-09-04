@@ -7,6 +7,7 @@
           <th scope="col">#</th>
           <th scope="col">Опрос</th>
           <th scope="col">Дата создания</th>
+          <th scope="col">Ответить</th>
           <th scope="col">Обновить</th>
           <th scope="col">Удалить</th>
         </tr>
@@ -17,6 +18,7 @@
                   <th scope="row">{{ forloop.counter }}</th>
                   <td><a href="{% url 'polls_detail' poll.pk %}">{{ poll.title }}</a></td>
                   <td>{{ poll.created_at }}</td>
+                  <td><a href="{% url 'answer_create' poll.pk %}">Перейти</a></td>
                   <td><a href="{% url 'polls_update' poll.pk %}" class="btn btn-primary">Обновить</a></td>
                   <td>
                       <form action="{% url 'polls_delete' poll.pk %}" method="post">

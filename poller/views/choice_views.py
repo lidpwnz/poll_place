@@ -1,24 +1,29 @@
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
-from django.views.generic import ListView, CreateView, UpdateView, DetailView, DeleteView
-
+from django.views.generic import CreateView, UpdateView, DeleteView
 from poller.forms import ChoiceForm
-from poller.models import Choice
+from poller.models import Choice, Question
 
 
 class ChoiceCreate(CreateView):
     model = Choice
     extra_context = {'btn_text': 'Создать'}
     form_class = ChoiceForm
+    template_name = 'polls/detail.html'
 
     def form_valid(self, form):
         form.instance.question_id = self.get_question_pk()
         return super(ChoiceCreate, self).form_valid(form)
 
+    def form_invalid(self, form):
+        return redirect(self.get_success_url())
+
     def get_question_pk(self):
         return self.kwargs.get('question_pk')
 
     def get_success_url(self):
-        return reverse_lazy('polls_detail', kwargs={'pk': self.object.question.poll_id})
+        pk = Question.objects.get(pk=self.get_question_pk()).poll_id
+        return reverse_lazy('polls_detail', kwargs={'pk': pk})
 
 
 class ChoiceUpdate(UpdateView):

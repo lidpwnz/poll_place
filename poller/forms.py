@@ -1,6 +1,6 @@
 from django.forms import models
 from django import forms
-from poller.models import Poll, Question, Choice
+from poller.models import Poll, Question, Choice, Answer
 
 
 class PollForm(models.ModelForm):
@@ -36,4 +36,14 @@ class ChoiceForm(models.ModelForm):
             'text': forms.TextInput(attrs={
                 'class': 'form-control mb-3'
             })
+        }
+
+
+class AnswerForm(forms.ModelForm):
+    class Meta:
+        model = Answer
+        fields = ['choice']
+
+        widgets = {
+            'choice': models.RadioSelect()
         }
