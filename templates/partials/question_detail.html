@@ -2,18 +2,18 @@
     <div class="card-header d-flex justify-content-between">
         {{ forloop.counter }}
         <div class="d-flex">
-            <a href="{% url 'question_update' question.pk %}" class="btn btn-primary me-4">Редактировать</a>
-            <form action="{% url 'question_delete' question.pk %}" method="post">
+            <a href="{% url 'question_update' data.question.pk %}" class="btn btn-primary me-4">Редактировать</a>
+            <form action="{% url 'question_delete' data.question.pk %}" method="post">
                 {% csrf_token %}
                 <button class="btn btn-danger" type="submit" onclick="return confirm('Вы уверены?')">Удалить</button>
             </form>
         </div>
     </div>
     <div class="card-body">
-        <h4 class="card-text mb-3">{{ question.text }}</h4>
+        <h4 class="card-text mb-3">{{ data.question.text }}</h4>
 
         <h5 class="mt-4">Добавить вариант ответа</h5>
-        {% url 'choice_create' question.pk as choice_create_url %}
+        {% url 'choice_create' data.question.pk as choice_create_url %}
         {% include 'partials/create&update_form.html' with url=choice_create_url %}
 
         <table class="table">
@@ -21,18 +21,22 @@
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Вариант ответа</th>
+                <th scope="col">Количество выборов</th>
+                <th scope="col">Процент выбора</th>
                 <th scope="col">Обновить</th>
                 <th scope="col">Удалить</th>
             </tr>
             </thead>
             <tbody>
-            {% for choice in question.choice_set.all %}
+            {% for choice_data in data.choices_stats %}
                 <tr>
                     <th scope="row">{{ forloop.counter }}</th>
-                    <td class="text-wrap">{{ choice.text }}</td>
-                    <td><a href="{% url 'choice_update' choice.pk %}" class="btn btn-primary me-4">Обновить</a></td>
+                    <td class="text-wrap">{{ choice_data.choice.text }}</td>
+                    <td>{{ choice_data.count }}</td>
+                    <td>{{ choice_data.percent_part }}</td>
+                    <td><a href="{% url 'choice_update' choice_data.choice.pk %}" class="btn btn-primary me-4">Обновить</a></td>
                     <td>
-                        <form action="{% url 'choice_delete' choice.pk %}" method="post">
+                        <form action="{% url 'choice_delete' choice_data.choice.pk %}" method="post">
                             {% csrf_token %}
                             <button class="btn btn-danger" type="submit"
                                     onclick="return confirm('Вы уверены?')">Удалить

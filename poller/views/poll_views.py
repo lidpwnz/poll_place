@@ -1,10 +1,8 @@
 from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DetailView, DeleteView, TemplateView
-
 from poller.forms import ChoiceForm
 from poller.helpers.views import PollAttrsMixin
-
 from poller.models import Poll, Answer
 
 
@@ -37,7 +35,39 @@ class DetailPoll(PollAttrsMixin, DetailView):
     extra_context = {'btn_text': 'Добавить'}
 
     def get_context_data(self, **kwargs):
-        return super(DetailPoll, self).get_context_data(form=ChoiceForm())
+        return super(DetailPoll, self).get_context_data(form=ChoiceForm(), questions=self.get_stat_context())
+
+    def get_questions(self):
+        return self.object.question_set.all()
+
+    def get_total_count(self):
+        return sum([item.answer_set.count() for item in self.get_questions()])
+
+    def get_choice_data(self, question):
+        question_data = {
+            'question': question,
+            'choices_stats': []
+        }
+
+        for choice in question.choice_set.all():
+            count = choice.answer_set.count()
+            choice_stat = {
+                'choice': choice,
+                'count': count,
+                'percent_part': f'{(count / self.get_total_count()) * 100}%' if count else '0%'
+            }
+            question_data['choices_stats'].append(choice_stat)
+
+        return question_data
+
+    def get_stat_context(self):
+        context = []
+        questions = self.get_questions()
+
+        for question in questions:
+            context.append(self.get_choice_data(question))
+
+        return context
 
 
 class DeletePoll(PollAttrsMixin, DeleteView):
