@@ -23,3 +23,12 @@ class Choice(models.Model):
 
     def __str__(self):
         return self.text
+
+
+class Answer(models.Model):
+    question = models.ForeignKey('poller.Question', on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    choice = models.ForeignKey('poller.Choice', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.question} - {self.choice}'
